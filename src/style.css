@@ -1,0 +1,44 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#content {
+    text-align: center;
+    width: 80%;
+}
+
+h1 {
+    font-size: 60px;
+}
+
+#head-photo {
+    height: 100px;
+    width: 100px;
+    
+}
+nav {
+    margin: 0;
+    
+}
+
+p {
+    margin: 0;
+    
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+ol {
+    margin: 0;
+    padding: 0;
+    
+}
