@@ -1,6 +1,7 @@
 
 import HeaderPhoto from './china-bowl.png';
 import './style.css';
+import {fetchWeatherData, connectWeatherData, weatherCity, weatherState, weatherCondition, weatherTemperature, weatherIcon} from './weather.js';
 
 
 // Creates the Header section
@@ -46,18 +47,62 @@ aboutDiv.setAttribute("id", "about-div");
 
 aboutDiv.append(aboutText, aboutTextParagraph);
 
-// Creates the Location section
+// Creates the Weather section
 
 const locationTitle = document.createElement("h2");
-locationTitle.textContent = "Our Location";
+locationTitle.textContent = "Local Weather";
 
 const locationText = document.createElement("p");
-locationText.textContent = "Visit us at your nearest location!"
+locationText.textContent = "Hot or cold, we are always there for you!"
+
+// Creates the City and State inputs
+// City -> 
+const locationCityName = document.createElement("h3");
+const locationStateName = document.createElement("h3");
+const locationWeatherCondition = document.createElement("h4");
+const locationWeatherTemperature = document.createElement("h4");
+const locationWeatherIcon = new Image();
+
+
+fetchWeatherData().then(() => {
+
+    locationCityName.textContent = weatherCity;
+    locationStateName.textContent = weatherState;
+    locationWeatherCondition.textContent = weatherCondition;
+    locationWeatherTemperature.textContent = weatherTemperature;
+    locationWeatherIcon.src = weatherIcon;
+});
+
+
+
+// State ->
+
+
+
+
+// Creates the weather div where everything weather-div related is inputted
 
 const locationDiv = document.createElement("div");
 locationDiv.setAttribute("id", "location-div");
 
-locationDiv.append(locationTitle, locationText);
+
+
+
+
+
+
+const imgGifAPI = new Image();
+imgGifAPI.setAttribute("id", "gif-image");
+imgGifAPI.src = "#";
+
+fetch('https://api.giphy.com/v1/gifs/translate?api_key=w1ra1rONC8I9vp4UFGFmEjTwiBgK9XOI&s=cats')
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(response) {
+        imgGifAPI.src = response.data.images.original.url;
+    });
+locationDiv.append(locationTitle, locationText,locationCityName, locationStateName, locationWeatherCondition, locationWeatherTemperature, locationWeatherIcon, imgGifAPI);
 
 // Gets the content div in index.html and appends each section to the content div
 
