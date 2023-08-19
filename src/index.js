@@ -1,8 +1,18 @@
+// Need to understand
+    // webpack and how to load modules
+        // Entry Points
+        // Output
+        // dynamic import
+            // default
+            // 
+
+
 
 import HeaderPhoto from './china-bowl.png';
 import './style.css';
-import {fetchWeatherData, connectWeatherData, weatherCity, weatherState, weatherCondition, weatherTemperature, weatherIcon} from './weather.js';
-
+import {fetchWeatherData, weatherCity, weatherState, weatherCondition, weatherTemperature, weatherIcon} from './weather.js';
+import clearDOM from './moduleLoader.js'
+import load from './menu.js';
 
 // Creates the Header section
 
@@ -22,12 +32,28 @@ myHeaderPhoto.src = HeaderPhoto;
 const navBar = document.createElement("nav");
 const ul = document.createElement("ul");
 
-for(const itemText of menuItems) {
-    const ol = document.createElement("ol");
-    ol.textContent = itemText;
-    ul.appendChild(ol);
+for (const itemText of menuItems) {
+    const ol = document.createElement("ol"); 
+    const link = document.createElement("a");
+    link.textContent = itemText; 
+    link.setAttribute("href", "#");
+    link.setAttribute("id", `${itemText}`); 
+    ol.appendChild(link);  // Append the <a> element to the < li> element
+    ul.appendChild(ol);    // Append the <li> element to the <ul> element
 }
-navBar.append(ul);
+navBar.appendChild(ul);   // Append the <ul> element to the navigation bar
+
+
+function navBarClickers() {
+    const menuClicker = document.getElementById("Menu").addEventListener("click", () => loadModule('menu.js'));
+    console.log(menuClicker);
+}
+
+function loadModule () {
+    clearDOM();
+    load();
+
+}
 
 const headerText = document.createElement("p");
 headerText.textContent = "Proudly serving Denton 15 years of authentic Chinese food...";
@@ -74,21 +100,10 @@ fetchWeatherData().then(() => {
 });
 
 
-
-// State ->
-
-
-
-
 // Creates the weather div where everything weather-div related is inputted
 
 const locationDiv = document.createElement("div");
 locationDiv.setAttribute("id", "location-div");
-
-
-
-
-
 
 
 const imgGifAPI = new Image();
@@ -112,3 +127,7 @@ getDiv.appendChild(header);
 getDiv.appendChild(aboutDiv);
 getDiv.appendChild(locationDiv);
 
+
+document.addEventListener("DOMContentLoaded", function () {
+    navBarClickers();
+});
